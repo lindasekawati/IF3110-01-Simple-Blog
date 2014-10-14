@@ -38,9 +38,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php"><h3>  +<h5>Post</h5></h3></a></li>
     </ul>
 </nav>
 
@@ -51,21 +51,26 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
+		 <hr class="posting" />
+		  <h2>Tambah Post</h2>
+		 <hr/>
             <div id="contact-area">
-                <form method="post" action="#">
+			<?php
+			echo'
+                <form method="post" action="linkpost.php" >
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
-                    <label for="Tanggal">Tanggal:</label>
+                    <label for="Tanggal">Tanggal :</label>
                     <input type="text" name="Tanggal" id="Tanggal">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return checkDate(Tanggal)">
                 </form>
+			';
+			?>
             </div>
         </div>
     </div>
@@ -105,6 +110,63 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+  
+  
+ // Addopted from Original JavaScript code by Chirp Internet: www.chirp.com.au
+  function checkDate(field)
+  {
+    var allowBlank = true;
+    var minYear =  (new Date()).getFullYear();
+	var minMonth = (new Date()).getMonth();
+	var minDate = (new Date()).getDate();
+	
+    var errorMsg = "";
+
+    // regular expression to match required date format
+    re = /^(\d{4})\/(\d{1,2})\/(\d{1,2})$/;
+
+    if(field.value != '') {
+		  if(regs = field.value.match(re)) {
+				if(regs[3] < 1 || regs[3] > 31) {
+				  errorMsg = "Kesalahan memasukan tanggal : " + regs[3];
+				} else if(regs[2] < 1 || regs[2] > 12) {
+				  errorMsg = "Kesalahan memasukan bulan: " + regs[2];
+				} else if(regs[3] >= minDate) {
+					if(regs[2]>= minMonth ){
+						if(regs[1]< minYear){
+							errorMsg = "Tahun yang Anda masukan salah: " + regs[1] + " - harus sama dengan atau lebih dari " + minYear;
+						}
+					}else{
+						if(regs[1]<= minYear){
+							errorMsg = "Tahun yang Anda masukan salah: " + regs[1] + " - harus sama dengan atau lebih dari " + minMonth;}
+					}
+				} else if(regs[3]<minDate){
+					if(regs[2]<= minMonth ){
+						if(regs[1]<= minYear){
+							errorMsg = "Tanggal yang Anda masukan salah: " +regs[3]+"/"+regs[2]+"/"+regs[1] + " - harus sama dengan atau lebih dari " + minDate+"/"+minMonth+"/"+minYear;
+						}
+					}else{
+						if(regs[1]< minYear){
+							errorMsg = "Bulan yang Anda masukan salah: " + regs[2] + " - harus sama dengan atau lebih dari " + minMonth;}
+					}
+				}
+			}else {
+			errorMsg = "Kesalahan format. " + field.value + "Seharusnya yyyy/mm/dd";}
+		
+	}else {
+      errorMsg = "Masukkan tanggal";
+    }
+	
+    if(errorMsg != "") {
+      alert(errorMsg);
+      field.focus();
+      return false;
+    }
+
+    return true;
+  }
+
+
 </script>
 
 </body>
