@@ -51,8 +51,9 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
+            <hr class="posting" />
+		  <h2>Edit Post</h2>
+		 <hr/>
             <div id="contact-area">
                  <?php
 				echo'<form method="post" action="linkeditpost.php?Id='.$_GET["Id"].'">';

@@ -156,7 +156,7 @@ a:hover {
   padding-top: 40px;
   margin-left: -490px; /* Half width of nav */
   border-bottom: 5px solid #333;
-  z-index: 2;
+  z-index: 102;
 }
 .nav.fixed {
   position: fixed;
